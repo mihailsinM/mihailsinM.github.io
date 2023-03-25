@@ -1,69 +1,60 @@
-// import { Component, StrictMode } from 'react';
+import { Component } from 'react';
 import './App.css';
 
-// const Header = () => {
-//   return <h2>Hello world!</h2>
-// }
 
-// const Field = () => {
-//   const holder = 'Enter here';
-//   const styleField = {
-//     width: '300px'
-//   };
-//   return <input
-//     placeholder={holder}
-//     type="text"
-//     style={styleField} />
-// }
+class WhoAmI extends Component {
+  // eslint-disable-next-line no-useless-constructor
+  constructor(props) {
+    super(props);
+    this.state = {
+      years: 27,
+      text: "+++",
+      position: ''
+    }
 
+  }
+  nextYear = () => {
+    this.setState(state => ({ years: state.years + 1 }))
+  }
 
-// class Field extends Component {
-//   render() {
-//     const holder = 'Enter here';
-//     const styleField = {
-//       width: '300px'
-//     };
-//     return <input
-//       placeholder={holder}
-//       type="text"
-//       style={styleField} />
-//   }
-// }
+  commitInputChanges = (e, color) => {
+    console.log(color);
+    this.setState({
+      position: e.target.value
+    })
+  }
 
-// function Btn() {
-//   const text = 'Login.';
-//   const logged = true;
+  render() {
+    const { name, surname, link } = this.props;
+    const { position, years } = this.state;
 
-//   return <button>{logged ? 'Enter' : text}</button>
-// }
+    console.log(this);
 
-// function WhoAmI(props) {
-function WhoAmI({ name, surname, link }) {
-  return (
-    <div>
-      {/* <h1>Wy name is {props.name}, surname - {props.surname}</h1>
-      <a href={props.link}>My profile</a> */}
+    return (
+      <div>
+        <button onClick={this.nextYear}>{this.state.text}</button>
+        <h1>My name is {name},
+          surname - {surname},
+          age - {years},
+          position - {position}</h1>
+        <a href={link}>My profile</a>
+        <form>
+          <span>Enter job title.</span>
+          {/* <input type='text' onInput={this.commitInputChanges} /> */}
+          <input type='text' onChange={(e) => this.commitInputChanges(e, 'some color')} />
+        </form>
+      </div >
+    )
+  }
 
-      {/* <h1>Wy name is {name.firstName}, surname - {surname}</h1> */}
-      <h1>Wy name is {name.firstName}, surname - {surname()}</h1>
-      <a href={link}>My profile</a>
-    </div>
-  );
 }
 
 function App() {
   return (
     <div className="App">
-      <WhoAmI name={{ firstName: 'John' }} surname={()=>{return "Smith"}} link='https://github.com/mihailsinM' />
-      {/* <WhoAmI name={{ firstName: 'Alex' }} surname='Smith' link='https://github.com/mihailsinM' /> */}
-      {/* <WhoAmI name={{ firstName: 'Miha' }} surname='Smith' link='https://github.com/mihailsinM' /> */}
-      {/* <StrictMode>
-        <Header />
-      </StrictMode>
-      <Field />
-      <Btn /> */}
+      <WhoAmI name='John' surname="Smith" link='https://github.com/mihailsinM' />
+      <WhoAmI name='Alex' surname="Smith" link='https://github.com/mihailsinM' />
     </div>
   );
 }
-// export { Header };
 export default App;
